@@ -8,6 +8,7 @@ on:
 
 env:
   IMAGE_NAME: sigmaproductions/sigmachatserver
+  IMAGE_TAG: $(date +%s)
 
 jobs:
   build:
@@ -26,9 +27,9 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${IMAGE_NAME}:$(date +%s)
+      run: docker build . --file Dockerfile --tag ${IMAGE_NAME}:${IMAGE_TAG}
     - name: Publish the Docker image
-      run: docker push ${IMAGE_NAME}:$(date +%s)
+      run: docker push ${IMAGE_NAME}:${IMAGE_TAG}
   deploy:
     runs-on: [self-hosted, zdechlak]
     steps:
