@@ -15,6 +15,6 @@ jobs:
       env:
         appsettings: ${{ secrets.appsettings }}
       run: |
-        echo "$appsettings" > appsettings.json
+        echo "$appsettings" > appsettings.json && cat appsettings.json
 
       
