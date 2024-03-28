@@ -11,7 +11,10 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: ls
+    - name: Configure appsettings.json
+      env:
+        appsettings: ${{ secrets.appsettings }}
+      run: |
+        echo "$appsettings" > appsettings.json
 
       
