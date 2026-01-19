@@ -19,7 +19,7 @@ module UserQueries =
             let sqlParams = {| userId = userId |}
 
             let! user = connection.QueryFirstAsync<User>(sql, sqlParams)
-            return (user)
+            return user
         }
 
     let updateUser (ctx: HttpContext) (userId: string) (model: UpdateMeModel) =
@@ -57,6 +57,17 @@ module UserQueries =
                 | _ -> Some user
 
             return optioned
+        }
+
+    let getOrCreateUser (ctx: HttpContext) (userId: string) =
+        task {
+            let! existingUser = getUser ctx userId
+
+            match existingUser with
+            | Some user -> return user
+            | None ->
+                let! newUser = createUser ctx userId
+                return newUser
         }
 
     let getAllUserIds (ctx: HttpContext) =

@@ -31,6 +31,7 @@ open Microsoft.FSharpLu.Json
 open Newtonsoft.Json.Serialization
 open Minio
 open Minio.DataModel.Args
+open LazyCreateUser
 // ---------------------------------
 // Web app
 // ---------------------------------
@@ -74,6 +75,7 @@ let configureApp (app: IApplicationBuilder) =
         .UseCors(configureCors)
         .UseAuthentication()
         // .UseAuthorization()
+        .UseMiddleware<CreateUserMiddleware>()
         .UseEndpoints(fun endpoints -> endpoints.MapHub<ChatHub>("/hub") |> ignore)
         .UseGiraffe(webApp)
 

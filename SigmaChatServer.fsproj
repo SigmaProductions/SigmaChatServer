@@ -32,6 +32,7 @@
     <Compile Include="src/web/blobbin/MinIOInitialization.fs" />
     <Compile Include="src/web/HttpHandlers.fs" />
     <Compile Include="src/web/Routing.fs" />
+    <Compile Include="src/web/middleware/CreateUser.fs" />
     <Compile Include="src/web/Program.fs" />
   </ItemGroup>
   <ItemGroup>

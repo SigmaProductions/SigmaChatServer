@@ -30,7 +30,6 @@ module Routing =
                            [ subRoute "/profile-picture" POST >=> profilePictureUploadHandler
                              GET >=> handleGetUserMe
                              PATCH >=> handleUpdateMeProfile ]
-                        subRoute "/callback" mustBeLoggedIn >=> (handleCallback)
                         subRoute "/web-push/subscribe" mustBeLoggedIn >=> (handleNewSubscription)
                         subRoute "/web-push/key" mustBeLoggedIn >=> (handleGetVapidKey) ])
               setStatusCode 404 >=> text "Not Found" ]

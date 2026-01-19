@@ -90,19 +90,6 @@ module HttpHandlers =
                 | model -> processCorrectMessage model
         }
 
-    let handleCallback (next: HttpFunc) (ctx: HttpContext) =
-        task {
-            let userId = ctx.User.Identity.Name
-            let! userInDb = getUser ctx userId
-
-            let! resultingUser =
-                match userInDb with
-                | Some user -> Task.FromResult user
-                | None -> createUser ctx userId
-
-            return! json resultingUser next ctx
-        }
-
     let handleUpdateMeProfile (next: HttpFunc) (ctx: HttpContext) =
         task {
             let userId = ctx.User.Identity.Name
@@ -135,7 +122,7 @@ module HttpHandlers =
             let res =
                 match user with
                 | Some u -> json (u |> embelishWithProfileUrl) next ctx
-                | None -> RequestErrors.UNAUTHORIZED "Basic" "" "You must be logged in." next ctx
+                | None -> RequestErrors.UNAUTHORIZED "Basic" "" "User does not exist." next ctx
 
             return! res
         }
